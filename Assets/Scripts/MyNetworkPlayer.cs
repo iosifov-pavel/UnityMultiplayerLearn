@@ -22,6 +22,10 @@ public class MyNetworkPlayer : NetworkBehaviour
     }
     [Command]
     private void CmdSetDisplayName(string newDisplayName){
+        if(newDisplayName.Length<3 || newDisplayName.Length>12){
+            Debug.Log("Wrong name");
+            return;
+        }        
         RpcLogNewName(newDisplayName); 
         SetDisplayName(newDisplayName);
     }
