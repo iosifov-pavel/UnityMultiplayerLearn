@@ -6,10 +6,8 @@ using UnityEngine;
 
 public class MyNetworkPlayer : NetworkBehaviour
 {
-    [SyncVar(hook =nameof(HandleUINameUpdated))][SerializeField] string displayName ="Missing Name"; 
-    [SyncVar(hook=nameof(HandleDisplayColourUpdated))][SerializeField] Color playerColor = Color.white;
-    [SerializeField] TMP_Text playerNameUI = null;
-    [SerializeField] Renderer displayColorRender = null;
+    [SyncVar][SerializeField] string displayName ="Missing Name"; 
+    [SyncVar][SerializeField] Color playerColor = Color.white;
     #region Server
     // Start is called before the first frame update
     [Server]
@@ -31,13 +29,6 @@ public class MyNetworkPlayer : NetworkBehaviour
     }
     #endregion
     #region Client
-    private void HandleDisplayColourUpdated(Color oldColor, Color newColor){
-        displayColorRender.material.SetColor("_BaseColor", newColor);
-    }
-
-    private void HandleUINameUpdated(string oldName, string newName){
-        playerNameUI.text = newName;
-    }
 
     [ContextMenu("SetMyName")]
     private void SetMyName(){
