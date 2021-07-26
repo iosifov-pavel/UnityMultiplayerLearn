@@ -10,6 +10,7 @@ public class Unit : NetworkBehaviour
     [SerializeField] UnityEvent onSelected=null;
     [SerializeField] UnityEvent onDeselected=null;
     [SerializeField] UnitMovement movement = null;
+    [SerializeField] Fighter fighter = null;
 
     public static event Action<Unit> ServerOnUintSpawn;
     public static event Action<Unit> ServerOnUintDespawn;
@@ -18,6 +19,10 @@ public class Unit : NetworkBehaviour
 
     public UnitMovement GetUnitMovement(){
         return movement;
+    }
+
+    public Fighter GetFighter(){
+        return fighter;
     }
 
     #region  Client

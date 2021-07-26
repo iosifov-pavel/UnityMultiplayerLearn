@@ -9,6 +9,9 @@ public class MyNetworkPlayer : NetworkBehaviour
     [SyncVar][SerializeField] string displayName ="Missing Name"; 
     [SyncVar][SerializeField] Color playerColor = Color.white;
     List<Unit> ownedUnits = new List<Unit>();
+    public List<Unit> GetUnits(){
+        return ownedUnits;
+    }
     #region Server
     // Start is called before the first frame update
     [Server]
