@@ -36,6 +36,6 @@ public class UnitFiring : NetworkBehaviour
     void Fire(){
         lastFireTime=0;
         Projectile newBullet = Instantiate(bulletPrefab,shootPoint.position,shootPoint.rotation);
-        NetworkServer.Spawn(newBullet.gameObject);
+        NetworkServer.Spawn(newBullet.gameObject, connectionToClient);
     }
 }

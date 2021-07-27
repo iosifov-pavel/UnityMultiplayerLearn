@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.EventSystems;
+using System;
 
 public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
 {
     [SerializeField] GameObject unitPrefab = null;
     [SerializeField] Transform unitSpawnPoint = null;
+    [SerializeField] Health health = null;
 
     
     #region Server
@@ -18,6 +20,20 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
             unitSpawnPoint.position,
             unitSpawnPoint.rotation);
             NetworkServer.Spawn(unitInstance, connectionToClient); 
+    }
+
+    public override void OnStartServer()
+    {
+        health.ServerOnDie += ServerHandleDie;
+    }
+
+    public override void OnStopServer()
+    {
+        health.ServerOnDie -= ServerHandleDie;
+    }
+    [Server] private void ServerHandleDie()
+    {
+        NetworkServer.Destroy(gameObject);
     }
     #endregion
 

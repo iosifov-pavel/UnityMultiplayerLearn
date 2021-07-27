@@ -18,6 +18,16 @@ public class UnitSelection : MonoBehaviour
     private void Start() {
         mainCamera = Camera.main;
         player = NetworkClient.connection.identity.GetComponent<MyNetworkPlayer>();
+        Unit.ClientOnUintDespawn += ClientHandleUnitDespawn;
+    }
+
+    private void ClientHandleUnitDespawn(Unit obj)
+    {
+        selectedUnits.Remove(obj);
+    }
+
+    private void OnDestroy() {
+        Unit.ClientOnUintDespawn -= ClientHandleUnitDespawn;
     }
 
     private void Update() {

@@ -52,42 +52,26 @@ public class MyNetworkPlayer : NetworkBehaviour
         Debug.Log(newName);
     }
 
-    public override void OnStartClient()
+    public override void OnStartAuthority()
     {
-        if(!isClientOnly){return;}
+        if(NetworkServer.active){return;}
         Unit.ClientOnUintSpawn+= AddUnit;
         Unit.ClientOnUintDespawn += RemoveUnit;
     }
 
     public override void OnStopClient()
     {
-        if(!isClientOnly){return;}
+        if(!isClientOnly || !hasAuthority){return;}
         Unit.ClientOnUintSpawn-= AddUnit;
         Unit.ClientOnUintDespawn -= RemoveUnit;
     }
 
     void AddUnit(Unit unit){
-        if(isClientOnly){
-            if(!hasAuthority){return;}
-            ownedUnits.Add(unit);
-            return;
-        }
-        if(unit.connectionToClient.connectionId == connectionToClient.connectionId){
-            ownedUnits.Add(unit);
-        }
+        ownedUnits.Add(unit);
     }
 
     void RemoveUnit(Unit unit){
-        if(isClientOnly){
-            if(!hasAuthority){return;}
-            ownedUnits.Remove(unit);
-            return;
-        }
-        if(unit.connectionToClient.connectionId == connectionToClient.connectionId){
-            if(ownedUnits.Contains(unit)){
-                ownedUnits.Remove(unit);
-            }
-        }
+        ownedUnits.Remove(unit);
     }
     #endregion
 
