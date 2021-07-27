@@ -106,7 +106,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7396026823615861996}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.503, z: 0}
+  m_LocalPosition: {x: 0, y: 0.596, z: 0.212}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7498238132236271374}
@@ -129,6 +129,8 @@ GameObject:
   - component: {fileID: 6878157952236144025}
   - component: {fileID: 5855365405288361695}
   - component: {fileID: 826951865294732707}
+  - component: {fileID: 1192254910580091989}
+  - component: {fileID: 117129845840931608}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -244,6 +246,8 @@ MonoBehaviour:
   syncInterval: 0.1
   agent: {fileID: 417683397836053518}
   fighter: {fileID: 826951865294732707}
+  chaseRange: 5
+  stoppingDistance: 20
 --- !u!114 &6878157952236144025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +323,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  target: {fileID: 0}
+--- !u!114 &1192254910580091989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7498238132236271369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 171469503c4873a438cb44ed487cd0ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  fighter: {fileID: 826951865294732707}
+  bulletPrefab: {fileID: 1305775664725597869, guid: 013904269ea962a4f8fcfc79e0fd6947, type: 3}
+  shootPoint: {fileID: 1197004839067565397}
+  attackRange: 7
+  fireRate: 1
+  rotationSpeed: 45
+--- !u!114 &117129845840931608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7498238132236271369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2b4bd1a9860e5c4699830484e617825, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  maxHealth: 100
 --- !u!1001 &7498238133310932867
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,7 +5,11 @@ using Mirror;
 
 public class Fighter : NetworkBehaviour
 {
-    [SerializeField] private Target target;
+    private Target target;
+
+    public Target GetTarget(){
+        return target;
+    }
     #region  Server
     [Command]
     public void CmdSetTarget(GameObject targetTo){
@@ -17,7 +21,5 @@ public class Fighter : NetworkBehaviour
     public void ClearTarget(){
         target=null;
     }
-    #endregion
-    #region  Client
     #endregion
 }

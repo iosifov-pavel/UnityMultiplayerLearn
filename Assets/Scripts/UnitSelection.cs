@@ -81,18 +81,19 @@ public class UnitSelection : MonoBehaviour
             }
         }
         else{
-            if(player.GetUnits().Count==0) return;
-            Vector2 min = selectionBox.anchoredPosition - selectionBox.sizeDelta/2;
-            Vector2 max = selectionBox.anchoredPosition + selectionBox.sizeDelta/2;
-            foreach(Unit unit in player.GetUnits()){
-                Vector3 screenPosition = mainCamera.WorldToScreenPoint(unit.transform.position);
-                if(screenPosition.x>min.x
-                && screenPosition.x<max.x
-                && screenPosition.y>min.y
-                && screenPosition.y<max.y){
-                    if(unit.hasAuthority){
-                        selectedUnits.Add(unit);
-                        unit.Select();
+            if(player.GetUnits().Count!=0){
+                Vector2 min = selectionBox.anchoredPosition - selectionBox.sizeDelta/2;
+                Vector2 max = selectionBox.anchoredPosition + selectionBox.sizeDelta/2;
+                foreach(Unit unit in player.GetUnits()){
+                    Vector3 screenPosition = mainCamera.WorldToScreenPoint(unit.transform.position);
+                    if(screenPosition.x>min.x
+                    && screenPosition.x<max.x
+                    && screenPosition.y>min.y
+                    && screenPosition.y<max.y){
+                        if(unit.hasAuthority){
+                            selectedUnits.Add(unit);
+                            unit.Select();
+                        }
                     }
                 }
             }

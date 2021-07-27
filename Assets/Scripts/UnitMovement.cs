@@ -8,12 +8,25 @@ using UnityEngine.InputSystem;
 public class UnitMovement : NetworkBehaviour {
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Fighter fighter=null;
-    
+    [SerializeField] float chaseRange = 6f;
+    [SerializeField] float stoppingDistance = 20f;
     Camera mainCamera;
     // Start is called before the first frame update
     #region Server
     [ServerCallback]
     private void Update() {
+        if(fighter.GetTarget()!=null){
+            float sqrMagnitude = (fighter.GetTarget().transform.position - transform.position).sqrMagnitude;
+            if (sqrMagnitude > chaseRange * chaseRange
+            && sqrMagnitude < stoppingDistance * stoppingDistance)
+            {
+                agent.SetDestination(fighter.GetTarget().transform.position);
+            }
+            else if(agent.hasPath){
+                agent.ResetPath();
+            }
+            return;
+        }
         if(!agent.hasPath){return;}
         if(agent.remainingDistance>agent.stoppingDistance){return;}
         agent.ResetPath();
