@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 256
   selectionBox: {fileID: 932127199956795230}
 --- !u!114 &178660437242180855
 MonoBehaviour:
@@ -145,7 +145,7 @@ MonoBehaviour:
   selection: {fileID: 5469836746440901980}
   mask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1281
 --- !u!1 &5883820077097203660
 GameObject:
   m_ObjectHideFlags: 0

@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 3404563281859929178}
   - component: {fileID: 6125172645218579933}
   m_Layer: 0
-  m_Name: UnitSpawner
+  m_Name: UnitBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

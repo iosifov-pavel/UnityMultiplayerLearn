@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
@@ -9,8 +10,12 @@ public class MyNetworkPlayer : NetworkBehaviour
     [SyncVar][SerializeField] string displayName ="Missing Name"; 
     [SyncVar][SerializeField] Color playerColor = Color.white;
     List<Unit> ownedUnits = new List<Unit>();
+    List<Building> ownedBuildings = new List<Building>();
     public List<Unit> GetUnits(){
         return ownedUnits;
+    }
+    public List<Building> GetBuildings(){
+        return ownedBuildings;
     }
     #region Server
     // Start is called before the first frame update
@@ -34,14 +39,40 @@ public class MyNetworkPlayer : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        Unit.ServerOnUintSpawn+=AddUnit;
-        Unit.ServerOnUintDespawn += RemoveUnit;
+        Unit.ServerOnUintSpawn+=ServerOnUnitSpawn;
+        Unit.ServerOnUintDespawn += ServerOnUnitDespawn;
+        Building.ServerOnBuildingSpawn += ServerHandleBuildingSpawn;
+        Building.ServerOnBuildingDespawn += ServerHandleBuildingDespawn;
+    }
+    [Server]
+    private void ServerOnUnitDespawn(Unit obj)
+    {
+        throw new NotImplementedException();
+    }
+    [Server]
+    private void ServerOnUnitSpawn(Unit obj)
+    {
+        throw new NotImplementedException();
+    }
+
+    [Server]
+    private void ServerHandleBuildingDespawn(Building obj)
+    {
+        
+    }
+
+    [Server]
+    private void ServerHandleBuildingSpawn(Building obj)
+    {
+        
     }
 
     public override void OnStopServer()
     {
         Unit.ServerOnUintSpawn-=AddUnit;
         Unit.ServerOnUintDespawn -= RemoveUnit;
+        Building.ServerOnBuildingSpawn -= ServerHandleBuildingSpawn;
+        Building.ServerOnBuildingDespawn -= ServerHandleBuildingDespawn;
     }
     #endregion
     #region Client
