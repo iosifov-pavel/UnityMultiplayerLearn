@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.SceneManagement;
+
 public class NetworkManagerMy : NetworkManager
 {
     [SerializeField] GameObject unitSpawner = null;
+    [SerializeField] GameStatesHandler handler = null;
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
         base.OnServerAddPlayer(conn);
@@ -21,5 +24,13 @@ public class NetworkManagerMy : NetworkManager
 
     Vector3 GenerateColors(){
         return new Vector3(Random.Range(0, 1f),Random.Range(0, 1f),Random.Range(0, 1f));
+    }
+
+    public override void OnServerSceneChanged(string newSceneName)
+    {
+        if(SceneManager.GetActiveScene().name.StartsWith("Scene_Map")){
+            GameStatesHandler instance = Instantiate(handler);
+            NetworkServer.Spawn(instance.gameObject);
+        }
     }
 }

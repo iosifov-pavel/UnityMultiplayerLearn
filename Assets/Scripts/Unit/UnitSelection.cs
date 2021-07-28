@@ -19,6 +19,12 @@ public class UnitSelection : MonoBehaviour
         mainCamera = Camera.main;
         player = NetworkClient.connection.identity.GetComponent<MyNetworkPlayer>();
         Unit.ClientOnUintDespawn += ClientHandleUnitDespawn;
+        GameStatesHandler.ClientOnGameOver += ClientHandleGameOver;
+    }
+
+    private void ClientHandleGameOver(string obj)
+    {
+        enabled=false;
     }
 
     private void ClientHandleUnitDespawn(Unit obj)
@@ -28,6 +34,7 @@ public class UnitSelection : MonoBehaviour
 
     private void OnDestroy() {
         Unit.ClientOnUintDespawn -= ClientHandleUnitDespawn;
+        GameStatesHandler.ClientOnGameOver -= ClientHandleGameOver;
     }
 
     private void Update() {

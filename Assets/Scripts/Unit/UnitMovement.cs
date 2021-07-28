@@ -13,6 +13,21 @@ public class UnitMovement : NetworkBehaviour {
     Camera mainCamera;
     // Start is called before the first frame update
     #region Server
+    public override void OnStartServer()
+    {
+        GameStatesHandler.ServerOnGameOver += ServerHandleGameOver;
+    }
+    [Server]
+    private void ServerHandleGameOver()
+    {
+        agent.ResetPath();
+    }
+
+    public override void OnStopServer()
+    {
+        GameStatesHandler.ServerOnGameOver += ServerHandleGameOver;
+    }
+
     [ServerCallback]
     private void Update() {
         if(fighter.GetTarget()!=null){
