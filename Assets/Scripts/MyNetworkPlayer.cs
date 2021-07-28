@@ -47,30 +47,34 @@ public class MyNetworkPlayer : NetworkBehaviour
     [Server]
     private void ServerOnUnitDespawn(Unit obj)
     {
-        throw new NotImplementedException();
+        if(obj.connectionToClient.connectionId!=connectionToClient.connectionId){return;}
+        ownedUnits.Remove(obj);
     }
     [Server]
     private void ServerOnUnitSpawn(Unit obj)
     {
-        throw new NotImplementedException();
+        if (obj.connectionToClient.connectionId != connectionToClient.connectionId) { return; }
+        ownedUnits.Add(obj);
     }
 
     [Server]
     private void ServerHandleBuildingDespawn(Building obj)
     {
-        
+        if (obj.connectionToClient.connectionId != connectionToClient.connectionId) { return; }
+        ownedBuildings.Remove(obj);
     }
 
     [Server]
     private void ServerHandleBuildingSpawn(Building obj)
     {
-        
+        if (obj.connectionToClient.connectionId != connectionToClient.connectionId) { return; }
+        ownedBuildings.Add(obj);
     }
 
     public override void OnStopServer()
     {
-        Unit.ServerOnUintSpawn-=AddUnit;
-        Unit.ServerOnUintDespawn -= RemoveUnit;
+        Unit.ServerOnUintSpawn-=ServerOnUnitSpawn;
+        Unit.ServerOnUintDespawn -= ServerOnUnitDespawn;
         Building.ServerOnBuildingSpawn -= ServerHandleBuildingSpawn;
         Building.ServerOnBuildingDespawn -= ServerHandleBuildingDespawn;
     }
@@ -88,6 +92,8 @@ public class MyNetworkPlayer : NetworkBehaviour
         if(NetworkServer.active){return;}
         Unit.ClientOnUintSpawn+= AddUnit;
         Unit.ClientOnUintDespawn += RemoveUnit;
+        Building.ClientOnBuildingSpawn += AddBuilding;
+        Building.ClientOnBuildingDespawn += RemoveBuilding;
     }
 
     public override void OnStopClient()
@@ -95,6 +101,8 @@ public class MyNetworkPlayer : NetworkBehaviour
         if(!isClientOnly || !hasAuthority){return;}
         Unit.ClientOnUintSpawn-= AddUnit;
         Unit.ClientOnUintDespawn -= RemoveUnit;
+        Building.ClientOnBuildingSpawn -= AddBuilding;
+        Building.ClientOnBuildingDespawn -= RemoveBuilding;
     }
 
     void AddUnit(Unit unit){
@@ -103,6 +111,16 @@ public class MyNetworkPlayer : NetworkBehaviour
 
     void RemoveUnit(Unit unit){
         ownedUnits.Remove(unit);
+    }
+
+    void AddBuilding(Building building)
+    {
+        ownedBuildings.Add(building);
+    }
+
+    void RemoveBuilding(Building building)
+    {
+        ownedBuildings.Remove(building);
     }
     #endregion
 

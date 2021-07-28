@@ -9,6 +9,8 @@ public class Building : NetworkBehaviour
     [SerializeField] Sprite icon;
     [SerializeField] int price = 100;
     [SerializeField] int id = -1;
+    [SerializeField] GameObject buildingView = null;
+    Vector3 buildingOffset = Vector3.zero;
 
     public static event Action<Building> ServerOnBuildingSpawn;
     public static event Action<Building> ServerOnBuildingDespawn;
@@ -27,6 +29,14 @@ public class Building : NetworkBehaviour
         return price;
     }
 
+    public GameObject GetBuildingView(){
+        return buildingView;
+    }
+
+    public Vector3 GetViewOffset(){
+        return buildingView.transform.localPosition;
+    }
+
     #region Server
     public override void OnStartServer()
     {
@@ -43,12 +53,13 @@ public class Building : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
-        
+        ClientOnBuildingSpawn?.Invoke(this);
     }
 
     public override void OnStopClient()
     {
-        base.OnStopClient();
+        if (!hasAuthority) { return; }
+        ClientOnBuildingDespawn?.Invoke(this);
     }
     #endregion
 

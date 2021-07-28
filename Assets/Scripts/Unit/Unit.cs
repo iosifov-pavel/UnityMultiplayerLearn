@@ -43,9 +43,6 @@ public class Unit : NetworkBehaviour
         DeSelect();
     }
 
-    public override void OnStartClient()
-    {
-    }
     public override void OnStopClient()
     {
         if(!hasAuthority){return;}

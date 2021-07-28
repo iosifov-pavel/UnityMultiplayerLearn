@@ -11,9 +11,8 @@ public class UnitFiring : NetworkBehaviour
     [SerializeField] float attackRange = 7f;
     [SerializeField] float fireRate = 1f;
     [SerializeField] float rotationSpeed = 35f;
-    float bSpeed = 2f;
 
-    private float lastFireTime = Mathf.Infinity;
+    float lastFireTime = Mathf.Infinity;
     Quaternion targetRotation;
     [ServerCallback]
     void Update(){
