@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManagerMy : NetworkManager
 {
-    [SerializeField] GameObject unitSpawner = null;
+    [SerializeField] GameObject playerBase = null;
     [SerializeField] GameStatesHandler handler = null;
     public override void OnServerAddPlayer(NetworkConnection conn)
     {
@@ -16,7 +16,7 @@ public class NetworkManagerMy : NetworkManager
         Vector3 newColor = GenerateColors();
         player.SetPlayerColor(new Color(newColor.x,newColor.y,newColor.z,1));
         Debug.Log(this.numPlayers);
-        GameObject playerSpawner = Instantiate(unitSpawner,
+        GameObject playerSpawner = Instantiate(playerBase,
         conn.identity.transform.position, 
         conn.identity.transform.rotation); 
         NetworkServer.Spawn(playerSpawner, conn); 

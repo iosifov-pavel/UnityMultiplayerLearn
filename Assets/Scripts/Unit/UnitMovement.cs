@@ -20,12 +20,15 @@ public class UnitMovement : NetworkBehaviour {
     [Server]
     private void ServerHandleGameOver()
     {
+        if(agent==null){return;}
+        if(!agent.isOnNavMesh){return;}
+        if(!agent.isActiveAndEnabled){return;}
         agent.ResetPath();
     }
 
     public override void OnStopServer()
     {
-        GameStatesHandler.ServerOnGameOver += ServerHandleGameOver;
+        GameStatesHandler.ServerOnGameOver -= ServerHandleGameOver;
     }
 
     [ServerCallback]

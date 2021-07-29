@@ -286,5 +286,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  buildings:
+  - {fileID: 8002508785471604841, guid: 8f2ad637f37749d408177034ef1d226b, type: 3}
+  - {fileID: 7827963471324918899, guid: fe91eb6019eacde40a9837171755a8c6, type: 3}
   displayName: Missing Name
   playerColor: {r: 1, g: 1, b: 1, a: 1}

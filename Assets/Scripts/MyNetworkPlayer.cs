@@ -7,8 +7,11 @@ using UnityEngine;
 
 public class MyNetworkPlayer : NetworkBehaviour
 {
+    [SerializeField] List<Building> buildings = new List<Building>();
     [SyncVar][SerializeField] string displayName ="Missing Name"; 
     [SyncVar][SerializeField] Color playerColor = Color.white;
+    [SyncVar(hook =nameof(ClientHandleResourcesUpdated))]int resources = 500;
+    public event Action<int> ClientOnResorcesUpdated;
     List<Unit> ownedUnits = new List<Unit>();
     List<Building> ownedBuildings = new List<Building>();
     public List<Unit> GetUnits(){
@@ -17,8 +20,14 @@ public class MyNetworkPlayer : NetworkBehaviour
     public List<Building> GetBuildings(){
         return ownedBuildings;
     }
+    public int GetResources(){
+        return resources;
+    }
     #region Server
     // Start is called before the first frame update
+    [Server] public void GainResources(int amount){
+        resources+=amount;
+    }
     [Server]
     public void SetDisplayName(string newName){
         displayName = newName;
@@ -78,9 +87,23 @@ public class MyNetworkPlayer : NetworkBehaviour
         Building.ServerOnBuildingSpawn -= ServerHandleBuildingSpawn;
         Building.ServerOnBuildingDespawn -= ServerHandleBuildingDespawn;
     }
+
+    [Command] public void CmdSpawnBuilding(int buildingID, Vector3 point){
+        foreach(Building building in buildings){
+            if(building.GetId()!=buildingID){continue;}
+            Building newBuilding = Instantiate(building,point,building.transform.rotation);
+            NetworkServer.Spawn(newBuilding.gameObject,connectionToClient);
+            break;
+        }
+    }
+
+    
     #endregion
     #region Client
-
+    private void ClientHandleResourcesUpdated(int oldValue, int newValue)
+    {
+        ClientOnResorcesUpdated?.Invoke(newValue);
+    }
 
     [ClientRpc]
     private void RpcLogNewName(string newName){

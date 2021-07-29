@@ -24,7 +24,7 @@ public class Fighter : NetworkBehaviour
 
     public override void OnStopServer()
     {
-        GameStatesHandler.ServerOnGameOver += ServerHandleGameOver;
+        GameStatesHandler.ServerOnGameOver -= ServerHandleGameOver;
     }
     [Command]
     public void CmdSetTarget(GameObject targetTo){

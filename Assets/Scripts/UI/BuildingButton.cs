@@ -25,25 +25,37 @@ public class BuildingButton : MonoBehaviour
         priceText.text = building.GetPrice().ToString();
         clickButon.onClick.AddListener(StartBuildingOnScene);
     }
-
+    [ClientCallback]
     private void Update() {
         if(player==null){
-            player = NetworkClient.connection.identity.GetComponent<MyNetworkPlayer>();
+            NetworkConnection conn = NetworkClient.connection;
+            NetworkIdentity id = conn.identity;
+            player = id.GetComponent<MyNetworkPlayer>();
         }
     }
 
     public void StartBuildingOnScene(){
         buildingPreview = Instantiate(building.GetBuildingView());
+        buildingPreview.SetActive(false);
         buildingRenderer = buildingPreview.GetComponentInChildren<Renderer>();
         StartCoroutine(TryPlaceBuilding(buildingPreview));
     }
 
     IEnumerator TryPlaceBuilding(GameObject buildingPreview){
-        while(true){
+        yield return new WaitUntil(()=>!Mouse.current.leftButton.isPressed);
+        while(!Mouse.current.rightButton.wasPressedThisFrame){
             Ray cameraRay = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
-            if(!Physics.Raycast(cameraRay,out RaycastHit hit,1000,floorMask)) {yield return null;}
-            buildingPreview.transform.position = hit.point + building.GetViewOffset();
+            if(Physics.Raycast(cameraRay,out RaycastHit hit,1000,floorMask)){
+                if(!buildingPreview.activeSelf){buildingPreview.SetActive(true);}
+                buildingPreview.transform.position = hit.point + building.GetViewOffset();
+                if(Mouse.current.leftButton.wasPressedThisFrame){
+                    player.CmdSpawnBuilding(building.GetId(),hit.point);
+                    Destroy(buildingPreview);
+                    yield break;
+                }
+            }
             yield return null;
         }
+        Destroy(buildingPreview);
     }
 }

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &5904110307102489088
+--- !u!114 &7314206737647742344
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7827963471324918856}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2afc4c381df5e1748bdc5860db918beb, type: 3}
+  m_Script: {fileID: 11500000, guid: 02d91ef5e22383d4abddbcc2504ddcfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
   health: {fileID: 7827963471324918900}
+  resourcesPerInterval: 10
+  interval: 2
 --- !u!1001 &1079301013282563735
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22,6 +24,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 342965998638037218, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 982100535331494940, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -40,7 +46,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7086679821029413599, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
       propertyPath: m_Name
-      value: Base
+      value: ResourcesGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 7086679821029413601, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
       propertyPath: m_Center.y
@@ -52,19 +58,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7086679821029413604, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
       propertyPath: id
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7086679821029413604, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
       propertyPath: icon
       value: 
-      objectReference: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7086679821029413604, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
       propertyPath: price
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7086679821029413605, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
       propertyPath: m_AssetId
-      value: 8453fb5dd1e333a4d82ab8e099bcbb11
+      value: fe91eb6019eacde40a9837171755a8c6
       objectReference: {fileID: 0}
     - target: {fileID: 7086679821029413606, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
       propertyPath: m_RootOrder

@@ -15,7 +15,6 @@ public class GameStatesHandler : NetworkBehaviour
     {
         Base.ServerOnBaseSpawned += ServerHandleBaseSpawned;
         Base.ServerOnBaseDespawned += ServerHandleBaseDespawned;
-        GameStatesHandler.ClientOnGameOver += ClientHandleGameOver;
     }
 
 
@@ -33,7 +32,7 @@ public class GameStatesHandler : NetworkBehaviour
     [Server] void ServerHandleBaseDespawned(Base playerBase)
     {
         playerBases.Remove(playerBase);
-        if(playerBases.Count>1){return;}
+        if(playerBases.Count>1 || playerBases.Count==0){return;}
         int winner = playerBases[0].connectionToClient.connectionId;
         RpcGameOver($"Player {winner}");
         ServerOnGameOver?.Invoke();
@@ -45,13 +44,8 @@ public class GameStatesHandler : NetworkBehaviour
         ClientOnGameOver?.Invoke(winner);
     }
 
-    private void ClientHandleGameOver(string obj)
-    {
-        enabled=false;
-    }
 
     private void OnDestroy() {
-        GameStatesHandler.ClientOnGameOver -= ClientHandleGameOver;
     }
     #endregion
 }
