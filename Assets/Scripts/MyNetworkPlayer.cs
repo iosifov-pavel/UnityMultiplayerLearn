@@ -23,11 +23,18 @@ public class MyNetworkPlayer : NetworkBehaviour
     public int GetResources(){
         return resources;
     }
+    public Color GetPlayerColor(){
+        return playerColor;
+    }
     #region Server
     // Start is called before the first frame update
     [Server] public void GainResources(int amount){
-        resources+=amount;
+        if(amount>0){resources+=amount;}
+        else{
+            resources = Mathf.Max(0,resources+amount);
+        }
     }
+
     [Server]
     public void SetDisplayName(string newName){
         displayName = newName;
@@ -91,6 +98,8 @@ public class MyNetworkPlayer : NetworkBehaviour
     [Command] public void CmdSpawnBuilding(int buildingID, Vector3 point){
         foreach(Building building in buildings){
             if(building.GetId()!=buildingID){continue;}
+            if(resources<building.GetPrice()){return;}
+            GainResources(-building.GetPrice());
             Building newBuilding = Instantiate(building,point,building.transform.rotation);
             NetworkServer.Spawn(newBuilding.gameObject,connectionToClient);
             break;

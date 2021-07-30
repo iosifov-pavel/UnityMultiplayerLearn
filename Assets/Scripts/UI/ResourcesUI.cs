@@ -13,7 +13,11 @@ public class ResourcesUI : MonoBehaviour
     [ClientCallback]
     private void Update() {
         if(player ==null){
-            player = NetworkClient.connection.identity.gameObject.GetComponent<MyNetworkPlayer>();
+            NetworkConnection conn = NetworkClient.connection;
+            if(conn==null){return;}
+            NetworkIdentity id = conn.identity;
+            if(id==null){return;}
+            player = id.GetComponent<MyNetworkPlayer>();
             player.ClientOnResorcesUpdated += ClientHandleResources;
             ClientHandleResources(player.GetResources());
         }

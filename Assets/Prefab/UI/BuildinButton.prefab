@@ -307,6 +307,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   clickButon: {fileID: 7281350410574195028}
+  buildingsMask:
+    serializedVersion: 2
+    m_Bits: 320
+  rangeForBuilding: 3
 --- !u!114 &7281350410574195028
 MonoBehaviour:
   m_ObjectHideFlags: 0

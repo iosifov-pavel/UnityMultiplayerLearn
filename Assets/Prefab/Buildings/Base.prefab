@@ -22,6 +22,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 434230887703149254, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 982100535331494940, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -122,6 +126,14 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9168532264351694848, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
+      propertyPath: renderers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9168532264351694848, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
+      propertyPath: renderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 468905648193218218}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
 --- !u!1 &7827963471324918856 stripped
@@ -140,3 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b4bd1a9860e5c4699830484e617825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &468905648193218218 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 611242421813379133, guid: fbebe41d827b2db499a45e8cb0968ed4, type: 3}
+  m_PrefabInstance: {fileID: 1079301013282563735}
+  m_PrefabAsset: {fileID: 0}

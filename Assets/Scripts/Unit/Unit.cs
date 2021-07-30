@@ -12,6 +12,7 @@ public class Unit : NetworkBehaviour
     [SerializeField] UnitMovement movement = null;
     [SerializeField] Fighter fighter = null;
     [SerializeField] Health health = null;
+    [SerializeField] int resourcesCost = 10;
 
     public static event Action<Unit> ServerOnUintSpawn;
     public static event Action<Unit> ServerOnUintDespawn;
@@ -20,6 +21,10 @@ public class Unit : NetworkBehaviour
 
     public UnitMovement GetUnitMovement(){
         return movement;
+    }
+
+    public int GetResourcesCost(){
+        return resourcesCost;
     }
 
     public Fighter GetFighter(){
