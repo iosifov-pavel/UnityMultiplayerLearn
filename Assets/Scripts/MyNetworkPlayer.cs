@@ -11,6 +11,26 @@ public class MyNetworkPlayer : NetworkBehaviour
     [SyncVar][SerializeField] string displayName ="Missing Name"; 
     [SyncVar][SerializeField] Color playerColor = Color.white;
     [SyncVar(hook =nameof(ClientHandleResourcesUpdated))]int resources = 500;
+    [SyncVar(hook = nameof(ClientPartyOwnerState))] bool isPartyOwner = false;
+
+    private void ClientPartyOwnerState(bool oldV, bool newV){
+        if(!hasAuthority){return;}
+
+    }
+
+    public bool IsPartyOwer(){
+        return isPartyOwner;
+    }
+
+    [Server] void SetPartyOwner(bool state){
+        isPartyOwner = state;
+    }
+
+    [Command] public void CmdStartGame(){
+        ((NetworkManagerMy)NetworkManager.singleton).StartGame();
+
+    }
+
     public event Action<int> ClientOnResorcesUpdated;
     List<Unit> ownedUnits = new List<Unit>();
     List<Building> ownedBuildings = new List<Building>();
@@ -128,9 +148,17 @@ public class MyNetworkPlayer : NetworkBehaviour
         Building.ClientOnBuildingDespawn += RemoveBuilding;
     }
 
+    public override void OnStartClient()
+    {
+        if(NetworkServer.active){return;}
+        ((NetworkManagerMy)NetworkManager.singleton).Players.Add(this);
+    }
+
     public override void OnStopClient()
     {
-        if(!isClientOnly || !hasAuthority){return;}
+        if(!isClientOnly){return;}
+        ((NetworkManagerMy)NetworkManager.singleton).Players.Remove(this);
+        if(!hasAuthority){return;}
         Unit.ClientOnUintSpawn-= AddUnit;
         Unit.ClientOnUintDespawn -= RemoveUnit;
         Building.ClientOnBuildingSpawn -= AddBuilding;

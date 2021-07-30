@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6667028246283344445, guid: 39ff935e45900a34cbc8b8c1e687f813, type: 3}
       propertyPath: onlineScene
-      value: Assets/Scenes/Scene_Map1/Scene_Map1.unity
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6667028246283344445, guid: 39ff935e45900a34cbc8b8c1e687f813, type: 3}
       propertyPath: offlineScene
