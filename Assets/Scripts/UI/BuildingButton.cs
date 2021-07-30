@@ -14,7 +14,7 @@ public class BuildingButton : MonoBehaviour
     [SerializeField] LayerMask floorMask;
     [SerializeField] Button clickButon = null;
     [SerializeField] LayerMask buildingsMask;
-    [SerializeField] float rangeForBuilding = 3f;
+    [SerializeField] float rangeForBuilding = 9f;
 
     private Camera mainCamera;
     private MyNetworkPlayer player;

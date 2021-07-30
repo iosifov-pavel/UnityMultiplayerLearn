@@ -16,7 +16,7 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
     [SerializeField] TMP_Text remainigUnitText= null;
     [SerializeField] Image unitProgress = null;
     [SerializeField] int maxUnitQueue = 5;
-    [SerializeField] float spawnMoveRange = 8;
+    [SerializeField] float spawnMoveRange = 2;
     [SerializeField] float unitSpawnDuration = 5;
 
     [SyncVar(hook =nameof(ClientHandleQueuedUnits))]int queuedUnits;
@@ -46,7 +46,7 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
         NetworkServer.Spawn(unitInstance.gameObject, connectionToClient);
         Vector3 spawnOffset = Random.insideUnitSphere * spawnMoveRange;
         spawnOffset.y = unitSpawnPoint.position.y;
-        unitInstance.GetComponent<UnitMovement>().ServerMove(spawnOffset);
+        unitInstance.GetComponent<UnitMovement>().ServerMove(unitSpawnPoint.position+spawnOffset);
         queuedUnits--;
         unitTimer=0;
     }

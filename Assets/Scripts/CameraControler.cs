@@ -16,6 +16,10 @@ public class CameraControler : NetworkBehaviour
     private Controlss controls;
     Vector2 previousInput;
 
+    public Transform GetCamera(){
+        return cameraTransform;
+    }
+
     public override void OnStartAuthority()
     {
         if(!hasAuthority){return;}

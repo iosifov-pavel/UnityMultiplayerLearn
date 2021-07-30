@@ -188,7 +188,7 @@ MonoBehaviour:
   selection: {fileID: 5469836746440901980}
   mask:
     serializedVersion: 2
-    m_Bits: 1281
+    m_Bits: 1345
 --- !u!1 &5883820077097203660
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +289,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5967284687286831992}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 10, z: -10}
+  m_LocalPosition: {x: 0, y: 20, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2381660360929715540}
@@ -401,6 +401,7 @@ MonoBehaviour:
   buildings:
   - {fileID: 8002508785471604841, guid: 8f2ad637f37749d408177034ef1d226b, type: 3}
   - {fileID: 7827963471324918899, guid: fe91eb6019eacde40a9837171755a8c6, type: 3}
+  - {fileID: 876469080378110027, guid: 8df3eeb94f406744589afe04d8308aa4, type: 3}
   displayName: Missing Name
   playerColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &4180753692682398218
@@ -420,5 +421,5 @@ MonoBehaviour:
   cameraTransform: {fileID: 2275110605700345744}
   speed: 20
   screenBorderThickness: 15
-  screenXLimits: {x: -30, y: 30}
-  screenZLimits: {x: -30, y: 30}
+  screenXLimits: {x: -55, y: 55}
+  screenZLimits: {x: -55, y: 55}

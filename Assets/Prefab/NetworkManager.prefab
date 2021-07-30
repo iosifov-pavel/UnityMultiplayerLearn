@@ -63,11 +63,13 @@ MonoBehaviour:
   playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 7827963471324918856, guid: 8453fb5dd1e333a4d82ab8e099bcbb11, type: 3}
+  - {fileID: 7827963471324918856, guid: fe91eb6019eacde40a9837171755a8c6, type: 3}
   - {fileID: 8002508785471604818, guid: 8f2ad637f37749d408177034ef1d226b, type: 3}
+  - {fileID: 876469080378110064, guid: 8df3eeb94f406744589afe04d8308aa4, type: 3}
   - {fileID: 7498238132236271369, guid: ded63e8e5bee9ae4a98184acf552a892, type: 3}
+  - {fileID: 3706082927972481339, guid: af220492e73a0ed45b91c3eaf444a5bd, type: 3}
   - {fileID: 8203580356657470982, guid: 013904269ea962a4f8fcfc79e0fd6947, type: 3}
   - {fileID: 1671867205580704400, guid: e57d2351d59fed444b69637b6946614f, type: 3}
-  - {fileID: 7827963471324918856, guid: fe91eb6019eacde40a9837171755a8c6, type: 3}
   playerBase: {fileID: 7827963471324918856, guid: 8453fb5dd1e333a4d82ab8e099bcbb11, type: 3}
   handler: {fileID: 1671867205580704407, guid: e57d2351d59fed444b69637b6946614f, type: 3}
 --- !u!114 &6667028246283344387
