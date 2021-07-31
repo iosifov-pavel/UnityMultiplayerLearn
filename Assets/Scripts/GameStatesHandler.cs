@@ -33,8 +33,8 @@ public class GameStatesHandler : NetworkBehaviour
     {
         playerBases.Remove(playerBase);
         if(playerBases.Count>1 || playerBases.Count==0){return;}
-        int winner = playerBases[0].connectionToClient.connectionId;
-        RpcGameOver($"Player {winner}");
+        string winner = playerBases[0].connectionToClient.identity.GetComponent<MyNetworkPlayer>().GetName();
+        RpcGameOver($"{winner}");
         ServerOnGameOver?.Invoke();
     }
     #endregion

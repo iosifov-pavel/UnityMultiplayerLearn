@@ -20,7 +20,7 @@ public class UnitCommandGiver : MonoBehaviour
     void Update()
     {
         if(Mouse.current.rightButton.wasPressedThisFrame){
-            Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
             if(Physics.Raycast(ray,out RaycastHit hit, 1000,mask)){
                 if(hit.collider.TryGetComponent<Target>(out Target target))
                 {

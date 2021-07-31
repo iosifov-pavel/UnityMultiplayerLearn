@@ -38,10 +38,6 @@ public class UnitSelection : MonoBehaviour
     }
 
     private void Update() {
-        if(player==null){
-            player = NetworkClient.connection.identity.GetComponent<MyNetworkPlayer>();
-            return;
-        }
         if(Mouse.current.leftButton.wasPressedThisFrame){
             StartSelectionArea();
         }
@@ -78,7 +74,7 @@ public class UnitSelection : MonoBehaviour
 
     private void ClearSelectionArea()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
         if(selectionBox.sizeDelta.magnitude==0){
             if (Physics.Raycast(ray, out RaycastHit hit, 1000, mask))
             {
@@ -102,7 +98,7 @@ public class UnitSelection : MonoBehaviour
                 Vector2 min = selectionBox.anchoredPosition - selectionBox.sizeDelta/2;
                 Vector2 max = selectionBox.anchoredPosition + selectionBox.sizeDelta/2;
                 foreach(Unit unit in player.GetUnits()){
-                    Vector3 screenPosition = mainCamera.WorldToScreenPoint(unit.transform.position);
+                    Vector3 screenPosition = Camera.main.WorldToScreenPoint(unit.transform.position);
                     if(screenPosition.x>min.x
                     && screenPosition.x<max.x
                     && screenPosition.y>min.y

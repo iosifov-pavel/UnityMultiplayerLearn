@@ -34,8 +34,7 @@ public class UnitSpawner : NetworkBehaviour, IPointerClickHandler
 
     #region Server
     [Server]
-    private void ProduceUnits()
-    {
+    private void ProduceUnits(){
         if(queuedUnits==0){return;}
         unitTimer+=Time.deltaTime;
         if(unitTimer<unitSpawnDuration){return;}

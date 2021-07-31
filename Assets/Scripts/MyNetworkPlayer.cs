@@ -8,10 +8,12 @@ using UnityEngine;
 public class MyNetworkPlayer : NetworkBehaviour
 {
     [SerializeField] List<Building> buildings = new List<Building>();
-    [SyncVar][SerializeField] string displayName ="Missing Name"; 
+    [SyncVar(hook =nameof(ClientHandleDisplayName))][SerializeField] string displayName ="Missing Name";
     [SyncVar][SerializeField] Color playerColor = Color.white;
     [SyncVar(hook =nameof(ClientHandleResourcesUpdated))]int resources = 500;
     [SyncVar(hook = nameof(ClientPartyOwnerState))] bool isPartyOwner = false;
+
+    public static event Action ClientInfoUpdate;
 
     private void ClientPartyOwnerState(bool oldV, bool newV){
         if(!hasAuthority){return;}
@@ -46,6 +48,10 @@ public class MyNetworkPlayer : NetworkBehaviour
     public Color GetPlayerColor(){
         return playerColor;
     }
+
+    public string GetName(){
+        return displayName;
+    }
     #region Server
     // Start is called before the first frame update
     [Server] public void GainResources(int amount){
@@ -79,6 +85,7 @@ public class MyNetworkPlayer : NetworkBehaviour
         Unit.ServerOnUintDespawn += ServerOnUnitDespawn;
         Building.ServerOnBuildingSpawn += ServerHandleBuildingSpawn;
         Building.ServerOnBuildingDespawn += ServerHandleBuildingDespawn;
+        DontDestroyOnLoad(gameObject);
     }
     [Server]
     private void ServerOnUnitDespawn(Unit obj)
@@ -134,6 +141,11 @@ public class MyNetworkPlayer : NetworkBehaviour
         ClientOnResorcesUpdated?.Invoke(newValue);
     }
 
+    private void ClientHandleDisplayName(string oldV, string newV)
+    {
+        ClientInfoUpdate?.Invoke();
+    }
+
     [ClientRpc]
     private void RpcLogNewName(string newName){
         Debug.Log(newName);
@@ -152,10 +164,12 @@ public class MyNetworkPlayer : NetworkBehaviour
     {
         if(NetworkServer.active){return;}
         ((NetworkManagerMy)NetworkManager.singleton).Players.Add(this);
+        DontDestroyOnLoad(gameObject);
     }
 
     public override void OnStopClient()
     {
+        ClientInfoUpdate?.Invoke();
         if(!isClientOnly){return;}
         ((NetworkManagerMy)NetworkManager.singleton).Players.Remove(this);
         if(!hasAuthority){return;}

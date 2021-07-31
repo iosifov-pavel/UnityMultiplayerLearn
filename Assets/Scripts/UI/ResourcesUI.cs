@@ -10,17 +10,14 @@ public class ResourcesUI : MonoBehaviour
     [SerializeField] TMP_Text resourcesText = null;
     MyNetworkPlayer player;
 
+    private void Start() {
+        player = NetworkClient.connection.identity.GetComponent<MyNetworkPlayer>();
+        player.ClientOnResorcesUpdated += ClientHandleResources;
+        ClientHandleResources(player.GetResources());
+    }
+
     [ClientCallback]
     private void Update() {
-        if(player ==null){
-            NetworkConnection conn = NetworkClient.connection;
-            if(conn==null){return;}
-            NetworkIdentity id = conn.identity;
-            if(id==null){return;}
-            player = id.GetComponent<MyNetworkPlayer>();
-            player.ClientOnResorcesUpdated += ClientHandleResources;
-            ClientHandleResources(player.GetResources());
-        }
     }
 
     private void OnDestroy() {

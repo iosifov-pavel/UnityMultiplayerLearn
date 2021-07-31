@@ -26,18 +26,11 @@ public class BuildingButton : MonoBehaviour
         mainCamera = Camera.main;
         icon.sprite = building.GetIcon();
         priceText.text = building.GetPrice().ToString();
-        clickButon.onClick.AddListener(StartBuildingOnScene); 
+        clickButon.onClick.AddListener(StartBuildingOnScene);
+        player = NetworkClient.connection.identity.GetComponent<MyNetworkPlayer>();
     }
     [ClientCallback]
-    private void Update() {
-        if(player==null){
-            NetworkConnection conn = NetworkClient.connection;
-            if(conn==null){return;}
-            NetworkIdentity id = conn.identity;
-            if(id==null){return;}
-            player = id.GetComponent<MyNetworkPlayer>();
-        }
-    }
+    private void Update() {}
 
     public void StartBuildingOnScene(){
         if(player.GetResources()<building.GetPrice()){return;}
